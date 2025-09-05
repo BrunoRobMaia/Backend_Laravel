@@ -42,12 +42,28 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ], [
+            'email.required' => 'O email é obrigatório',
+            'email.email' => 'Digite um email válido',
+            'password.required' => 'A senha é obrigatória',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Dados inválidos',
+                'errors' => $validator->errors()
+            ], 400);
+        }
+    
         $credentials = $request->only('email', 'password');
-
+    
         if (Auth::attempt($credentials)) {
-            $user = User::where('email', $request->email)->first();
+            $user = Auth::user();
             $token = $user->createToken('auth_token')->plainTextToken;
-
+    
             return response()->json([
                 'message' => 'Login realizado com sucesso!',
                 'user' => $user,
@@ -55,10 +71,24 @@ class AuthController extends Controller
                 'token_type' => 'Bearer',
             ]);
         }
-
+    
+        // Verifica se o email existe para dar mensagens específicas
+        $user = User::where('email', $request->email)->first();
+        
+        if (!$user) {
+            return response()->json([
+                'message' => 'Usuário não encontrado',
+            ], 400);
+        }
+        if(!Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'Senha incorreta',
+            ], 400);
+        }
+    
         return response()->json([
-            'message' => 'Credenciais inválidas'
-        ], 401);
+            'message' => 'Falha no login',
+        ], 400);
     }
 
     public function logout(Request $request)
