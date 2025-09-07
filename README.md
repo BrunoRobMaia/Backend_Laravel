@@ -27,70 +27,77 @@
 
 ## 🚀 Features
 
-- **User Authentication**: Register, login, and manage user sessions with Laravel Sanctum
-- **Song Management**: CRUD operations for songs
-- **Suggestion System**: Users can submit and manage song suggestions
-- **Top Songs**: Endpoint to retrieve top-rated songs
-- **Modern API**: RESTful API design with proper status codes and JSON responses
-- **Secure**: Built-in protection against common web vulnerabilities
+-   **User Authentication**: Register, login, and manage user sessions with Laravel Sanctum
+-   **Song Management**: CRUD operations for songs
+-   **Suggestion System**: Users can submit and manage song suggestions
+-   **Top Songs**: Endpoint to retrieve top-rated songs
+-   **Modern API**: RESTful API design with proper status codes and JSON responses
+-   **Secure**: Built-in protection against common web vulnerabilities
 
 ## 📋 Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
-- PHP 8.2 or higher
-- Composer (PHP package manager)
-- MySQL 5.7+ or MariaDB 10.3+
-- Node.js & NPM (for frontend assets if needed)
+-   PHP 8.2 or higher
+-   Composer (PHP package manager)
+-   MySQL 5.7+ or MariaDB 10.3+
+-   Node.js & NPM (for frontend assets if needed)
 
 ## 🛠️ Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/backend.git
-   cd backend
-   ```
+
+    ```bash
+    git clone https://github.com/yourusername/backend.git
+    cd backend
+    ```
 
 2. **Install PHP dependencies**
-   ```bash
-   composer install
-   ```
+
+    ```bash
+    composer install
+    ```
 
 3. **Install NPM dependencies** (if needed)
-   ```bash
-   npm install
-   ```
+
+    ```bash
+    npm install
+    ```
 
 4. **Create environment file**
-   ```bash
-   cp .env.example .env
-   ```
+
+    ```bash
+    cp .env.example .env
+    ```
 
 5. **Generate application key**
-   ```bash
-   php artisan key:generate
-   ```
+
+    ```bash
+    php artisan key:generate
+    ```
 
 6. **Configure database**
    Update your `.env` file with your database credentials:
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=your_database_name
-   DB_USERNAME=your_database_user
-   DB_PASSWORD=your_database_password
-   ```
+
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=your_database_name
+    DB_USERNAME=your_database_user
+    DB_PASSWORD=your_database_password
+    ```
 
 7. **Run database migrations**
-   ```bash
-   php artisan migrate
-   ```
+
+    ```bash
+    php artisan migrate
+    ```
 
 8. **Start the development server**
-   ```bash
-   php artisan serve
-   ```
+    ```bash
+    php artisan serve
+    ```
 
 The API will be available at `http://localhost:8000`
 
@@ -98,35 +105,29 @@ The API will be available at `http://localhost:8000`
 
 ### Authentication
 
-| Method | Endpoint    | Description          | Auth Required |
-|--------|-------------|----------------------|---------------|
-| POST   | /api/register | Register a new user  | No            |
-| POST   | /api/login    | Login user           | No            |
-| POST   | /api/logout   | Logout user          | Yes           |
-| GET    | /api/me       | Get current user info| Yes           |
+| Method | Endpoint      | Description         | Auth Required |
+| ------ | ------------- | ------------------- | ------------- |
+| POST   | /api/register | Register a new user | No            |
+| POST   | /api/login    | Login user          | No            |
+| POST   | /api/logout   | Logout user         | Yes           |
 
 ### Songs
 
-| Method | Endpoint     | Description               | Auth Required |
-|--------|--------------|---------------------------|---------------|
-| GET    | /api/top-songs | Get top songs            | No            |
-| GET    | /api/songs     | Get all songs            | Yes           |
-| POST   | /api/songs     | Create a new song         | Yes           |
-| GET    | /api/songs/{id}| Get a specific song      | Yes           |
-| PUT    | /api/songs/{id}| Update a song            | Yes           |
-| DELETE | /api/songs/{id}| Delete a song            | Yes           |
+| Method | Endpoint        | Description       | Auth Required |
+| ------ | --------------- | ----------------- | ------------- |
+| GET    | /api/top-songs  | Get top songs     | No            |
+| POST   | /api/songs      | Create a new song | Yes           |
+| PUT    | /api/songs/{id} | Update a song     | Yes           |
+| DELETE | /api/songs/{id} | Delete a song     | Yes           |
 
 ### Suggestions
 
-| Method | Endpoint               | Description               | Auth Required |
-|--------|------------------------|---------------------------|---------------|
-| GET    | /api/suggestions       | Get all suggestions       | Yes           |
-| POST   | /api/suggestions       | Create a new suggestion   | Yes           |
-| GET    | /api/suggestions/{id}  | Get a specific suggestion| Yes           |
-| PUT    | /api/suggestions/{id}  | Update a suggestion       | Yes           |
-| DELETE | /api/suggestions/{id}  | Delete a suggestion       | Yes           |
-| POST   | /api/suggestions/{id}/approve | Approve suggestion | Yes      |
-| POST   | /api/suggestions/{id}/reject  | Reject suggestion  | Yes      |
+| Method | Endpoint                      | Description             | Auth Required |
+| ------ | ----------------------------- | ----------------------- | ------------- |
+| GET    | /api/suggestions              | Get all suggestions     | Yes           |
+| POST   | /api/suggestions              | Create a new suggestion | Yes           |
+| POST   | /api/suggestions/{id}/approve | Approve suggestion      | Yes           |
+| POST   | /api/suggestions/{id}/reject  | Reject suggestion       | Yes           |
 
 ## 🔒 Authentication
 
@@ -135,9 +136,9 @@ This API uses Laravel Sanctum for authentication. To authenticate your requests:
 1. Register a new user at `POST /api/register` or login at `POST /api/login`
 2. You'll receive a token in the response
 3. Include this token in the `Authorization` header for subsequent requests:
-   ```
-   Authorization: Bearer YOUR_TOKEN_HERE
-   ```
+    ```
+    Authorization: Bearer YOUR_TOKEN_HERE
+    ```
 
 ## 🧪 Testing
 
