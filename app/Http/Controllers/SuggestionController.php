@@ -13,6 +13,22 @@ class SuggestionController extends Controller
         return Suggestion::with('user')->get();
     }
 
+    public function suggestions(Request $request)
+    {
+        $perPage = $request->get('per_page', 10);
+
+        $suggestions = Suggestion::orderBy('created_at', 'desc')
+            ->with('user') // 👈 se quiser trazer o relacionamento
+            ->paginate($perPage);
+
+        return response()->json([
+            'data' => $suggestions->items(),
+            'total' => $suggestions->total(),
+            'page' => $suggestions->currentPage(),
+        ]);
+    }
+
+
     public function store(Request $request)
     {
         $validated = $request->validate([

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('youtube_url');
-            $table->integer('play_count')->default(0);
+            $table->integer('play_count');
             $table->timestamps();
         });
     }

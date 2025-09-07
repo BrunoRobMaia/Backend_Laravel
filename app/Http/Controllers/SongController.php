@@ -13,16 +13,26 @@ class SongController extends Controller
         return Song::all();
     }
 
-    public function topSongs()
+    public function topSongs(Request $request)
     {
-        return Song::orderBy('play_count', 'desc')->take(5)->get();
+        $perPage = $request->get('per_page', 10);
+
+        $songs = Song::orderBy('play_count', 'desc')
+            ->paginate($perPage);
+
+        return response()->json([
+            'data' => $songs->items(),
+            'total' => $songs->total(),
+            'page' => $songs->currentPage(),
+        ]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'title' => 'required|string',
-            'youtube_url' => 'required|url'
+            'youtube_url' => 'required|url',
+            'play_count' => 'required|integer',
         ]);
 
         return Song::create($validated);
@@ -32,7 +42,8 @@ class SongController extends Controller
     {
         $validated = $request->validate([
             'title' => 'sometimes|string',
-            'youtube_url' => 'sometimes|url'
+            'youtube_url' => 'sometimes|url',
+            'play_count' => 'sometimes|integer',
         ]);
 
         $song->update($validated);
